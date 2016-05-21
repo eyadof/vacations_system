@@ -24,16 +24,12 @@
                 <h:form>
                     <p:menu>
                         <p:submenu label="Employees" icon="ui-icon-person">
-                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'employees-dashboard')}" value="Employee List" icon="ui-icon-list"></p:menuitem>
-                            <p:menuitem value="New Employee" icon="ui-icon-plus"></p:menuitem>
+                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'employees-dashboard')}" value="Employee List" icon="ui-icon-person"></p:menuitem>
+                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'employees-dashboard')}" value="New Employee" icon="ui-icon-plus"></p:menuitem>
                         </p:submenu>
-                        <p:submenu label="Departments" icon="ui-icon-person">
-                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'departments-dashboard')}" value="Departments List"  icon="ui-icon-list"></p:menuitem>
+                        <p:submenu label="Departments" icon="ui-icon-suitcase">
+                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'departments-dashboard')}" value="Departments List"  icon="ui-icon-suitcase"></p:menuitem>
                             <p:menuitem value="New Department" onclick="PF('new-dep-dialog').show()" icon="ui-icon-plus"></p:menuitem>
-                        </p:submenu>
-                        <p:submenu label="Vacations" icon="ui-icon-person">
-                            <p:menuitem value="Vacations List" icon="ui-icon-list"></p:menuitem>
-                            <p:menuitem value="New Vacation" icon="ui-icon-plus"></p:menuitem>
                         </p:submenu>
                     </p:menu>
                 </h:form>

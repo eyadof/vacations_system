@@ -48,9 +48,9 @@
                         <p:inputText value="#{emp.address}"></p:inputText>
                     </p:inplace>
                 </p:column>
-                <p:column headerText="Edit">
-                    <p:commandButton value="Edit" action="#{employeeManagedBean.updateEmployee(emp)}" update=":employees-table"></p:commandButton>
-                    <p:commandButton value="Delete" action="#{employeeManagedBean.deleteEmployee(emp)}" update=":employees-table"></p:commandButton>
+                <p:column headerText="Actions">
+                    <p:commandButton icon="ui-icon-check" action="#{employeeManagedBean.updateEmployee(emp)}" update=":employees-table"></p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" action="#{employeeManagedBean.deleteEmployee(emp)}" update=":employees-table"></p:commandButton>
                 </p:column>
             </p:dataTable>            
         </h:form>

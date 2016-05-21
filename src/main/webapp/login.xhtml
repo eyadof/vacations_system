@@ -13,36 +13,20 @@ and open the template in the editor.
         <title>Welcome !</title>
     </h:head>
     <style>
-        /*        body{
-                    background: #f0f0f0;
-                }
-                form{
-                    background: white;
-                    width: 25%;
-                    -webkit-box-shadow: 0px -1px 10px 0px rgba(79,107,98,1);
-                    -moz-box-shadow: 0px -1px 10px 0px rgba(79,107,98,1);
-                    box-shadow: 0px -1px 10px 0px rgba(79,107,98,1);
-                }
-                .wb{
-                    color: white;
-                    min-height: 75px;
-                    text-align: center;
-                    line-height: 5;
-                }
-                .centre{
-                    position: relative;
-                    left: 35%;
-                    top: -150%;
-                }
-                .cbutton{
-                    left:30%;
-                }*/
+        .center{
+            left: 30.5%;
+            position: relative;
+        }
+        .cbutton{
+            position: relative;
+            left: 175%;
+        }
     </style>
     <h:body>
         <div class="ui-grid-row"></div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"></div>
-            <div class="ui-grid-col-4">
+            <div class="ui-grid-col-4 center">
                 <h:form id="login-form">
                     <div class="ui-grid-row">
                         <p:panel header="Welcome Back" style="margin-bottom:20px">
@@ -50,8 +34,8 @@ and open the template in the editor.
                                 <h:outputLabel value="Email" for="email-input"></h:outputLabel>
                                 <p:inputText  id="email-input" value="#{employeeManagedBean.employee.email}"></p:inputText>
                                 <h:outputLabel value="Password" for="password-input"></h:outputLabel>
-                                <p:inputText  id="password-input" value="#{employeeManagedBean.employee.password}"></p:inputText>
-                                <p:commandButton value="Login" styleClass="waves-effect waves-light btn cbutton" action="#{employeeManagedBean.login(employeeManagedBean.employee.email, employeeManagedBean.employee.password)}"></p:commandButton>
+                                <p:inputText  type="password" id="password-input" value="#{employeeManagedBean.employee.password}"></p:inputText>
+                                <p:commandButton styleClass= "cbutton" value="Login" action="#{employeeManagedBean.login(employeeManagedBean.employee.email, employeeManagedBean.employee.password)}"></p:commandButton>
                             </h:panelGrid>
                         </p:panel>
                     </div>

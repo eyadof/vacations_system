@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <p:growl widgetVar="growl" showDetail="true" />
-        <p:socket onMessage="handleMessage" channel="/notify" />
+        <p:socket onMessage="handleMessage" channel="/notify" />    
 
         <script type="text/javascript">
             function handleMessage(facesmessage) {
@@ -23,7 +23,7 @@
                 <p:menubar>
                     <f:facet name="options">
                         <p:inputText style="margin-right:10px" placeholder="Search"/>
-                        <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                        <p:commandButton action="#{employeeManagedBean.logout()}" type="button" value="Logout" icon="ui-icon-extlink" />
                     </f:facet>
                 </p:menubar>
             </h:form>
@@ -33,9 +33,10 @@
             <div class="ui-grid-col-2">
                 <h:form>
                     <p:menu>
-                        <p:submenu label="Navigation" icon="ui-icon-person">
-                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'personal-vacations')}" value="My Vacations" icon="ui-icon-list"></p:menuitem>
-                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'department-vacations')}" value="Department Vacation" icon="ui-icon-plus" rendered="#{employeeManagedBean.currentUser.role == 'DepartmentManager'}"></p:menuitem>
+                        <p:submenu label="Navigation">
+                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'personal-vacations')}" value="My Vacations" icon="ui-icon-note"></p:menuitem>
+                            <p:menuitem onclick="PF('new-vacation-dialog').show()" value="Request Vacations" icon="ui-icon-plus"></p:menuitem>
+                            <p:menuitem action="#{appRouter.goTo(employeeManagedBean.currentUser, 'department-vacations')}" value="Department Vacation" icon="ui-icon-folder-collapsed" rendered="#{employeeManagedBean.currentUser.role == 'DepartmentManager'}"></p:menuitem>
                         </p:submenu>
                     </p:menu>
                 </h:form>

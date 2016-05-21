@@ -27,8 +27,8 @@
                     </p:inplace>
                 </p:column>
                 <p:column headerText="Edit">
-                    <p:commandButton value="Edit" action="#{departmentManagedBean.updateDepartment(dep)}" update=":departments-table"></p:commandButton>
-                    <p:commandButton value="Delete" action="#{departmentManagedBean.deleteDepartment(dep)}" update=":departments-table"></p:commandButton>
+                    <p:commandButton icon="ui-icon-check" action="#{departmentManagedBean.updateDepartment(dep)}" update=":departments-table"></p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" action="#{departmentManagedBean.deleteDepartment(dep)}" update=":departments-table"></p:commandButton>
                 </p:column>
             </p:dataTable>            
         </h:form>

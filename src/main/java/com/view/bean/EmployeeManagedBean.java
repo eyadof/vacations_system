@@ -88,8 +88,9 @@ public class EmployeeManagedBean implements Serializable{
             }
     }
     
-    public void logout(){
+    public String logout(){
         currentUser = null;
+        return "login.xhtml";
     }
     
     public Employee getEmployee() {

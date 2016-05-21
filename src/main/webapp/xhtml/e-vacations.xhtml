@@ -29,30 +29,34 @@
                     <h:outputText value="#{vac.endsAt}"></h:outputText>
                 </p:column>
             </p:dataTable>
-            <div>
-                <p:panelGrid columns="2">
-                    <h:outputText value="Type">
-                    </h:outputText>
-                    <p:selectOneMenu value="#{vacationManagedBean.vacation.type}">
-                        <f:selectItem itemLabel="Select Type" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{vacationManagedBean.types}" />
-                    </p:selectOneMenu>
-
-                    <h:outputText value="Starts From">
-                    </h:outputText>
-                    <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.startsFrom}">
-
-                    </p:calendar>
-                    <h:outputText value="End At">
-                    </h:outputText>
-                    <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.endsAt}">
-
-                    </p:calendar>
-                </p:panelGrid>
-            </div>
-            <div style="visibility: hidden" value="#{vacationManagedBean.vacation.employee = employeeManagedBean.currentUser}"></div>
-            <p:commandButton value="Add" action="#{vacationManagedBean.addVacation()}" update=":formView"> </p:commandButton>
         </h:form>
+        <p:dialog class="modal" header="New Vacation" widgetVar="new-vacation-dialog" modal="true" height="100%">
+            <h:form>
+                <div>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Type">
+                        </h:outputText>
+                        <p:selectOneMenu value="#{vacationManagedBean.vacation.type}">
+                            <f:selectItem itemLabel="Select Type" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{vacationManagedBean.types}" />
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Starts From">
+                        </h:outputText>
+                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.startsFrom}">
+
+                        </p:calendar>
+                        <h:outputText value="End At">
+                        </h:outputText>
+                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.endsAt}">
+
+                        </p:calendar>
+                    </h:panelGrid>
+                </div>
+                <div style="visibility: hidden" value="#{vacationManagedBean.vacation.employee = employeeManagedBean.currentUser}"></div>
+                <p:commandButton value="Add" action="#{vacationManagedBean.addVacation()}" update=":formView"> </p:commandButton>
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>
 

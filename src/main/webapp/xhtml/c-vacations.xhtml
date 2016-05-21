@@ -27,14 +27,10 @@
             <p:column headerText="Ends At">
                 <h:outputText value="#{vac.endsAt}"></h:outputText>
             </p:column>
-            <p:column headerText="Accept">
+            <p:column headerText="Actions">
                 <h:form>
-                    <p:commandButton value="Accept" action="#{vacationManagedBean.gmAccept(vac)}" update=":vacationsTable"></p:commandButton>
-                </h:form>
-            </p:column>
-            <p:column headerText="Reject">
-                <h:form>
-                    <p:commandButton value="Reject" action="#{vacationManagedBean.gmReject(vac)}" update=":vacationsTable"></p:commandButton>
+                    <p:commandButton icon="ui-icon-check" action="#{vacationManagedBean.gmAccept(vac)}" update=":vacationsTable"></p:commandButton>
+                <p:commandButton icon="ui-icon-cancel" action="#{vacationManagedBean.gmReject(vac)}" update=":vacationsTable"></p:commandButton>
                 </h:form>
             </p:column>
         </p:dataTable>
