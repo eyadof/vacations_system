@@ -1,0 +1,51 @@
+<ui:composition template="/xhtml/d-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Admin Dashboard</ui:define>
+
+    <ui:define name="content">
+        <h:form id ="departments-table">
+            <p:dataTable value="#{departmentManagedBean.departments}" var="dep">
+                <p:column headerText="ID">
+                    <h:outputText value="#{dep.id}"></h:outputText>
+                </p:column>
+                <p:column headerText="Name">
+                    <p:inplace>
+                        <h:inputText value="#{dep.name}"></h:inputText>
+                    </p:inplace>                
+                </p:column>
+                <p:column headerText="Manager">
+                    <p:inplace label="#{dep.manager.name}">
+                        <p:selectOneMenu value="#{departmentManagedBean.managerId}">
+                            <f:selectItems value="#{employeeManagedBean.employeeList}" var="emp" itemLabel="#{emp.name}" itemValue="#{emp.id}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </p:inplace>
+                </p:column>
+                <p:column headerText="Edit">
+                    <p:commandButton value="Edit" action="#{departmentManagedBean.updateDepartment(dep)}" update=":departments-table"></p:commandButton>
+                    <p:commandButton value="Delete" action="#{departmentManagedBean.deleteDepartment(dep)}" update=":departments-table"></p:commandButton>
+                </p:column>
+            </p:dataTable>            
+        </h:form>
+
+        <p:dialog class="modal" header="New Department" widgetVar="new-dep-dialog" modal="true" height="100%">
+            <h:form id="edit-form">
+                <h:panelGrid columns="2" cellpadding="3">
+                    <p:outputLabel for="name">Name</p:outputLabel>
+                    <p:inputText value="#{departmentManagedBean.department.name}" placeholder="Department Name" id="name"/>
+                    <p:outputLabel>Manager</p:outputLabel>
+                    <p:selectOneMenu value="#{departmentManagedBean.managerId}">
+                        <f:selectItem itemLabel="Select Employee" itemValue="" noSelectionOption="true"></f:selectItem>
+                        <f:selectItems value="#{employeeManagedBean.employeeList}" var="emp" itemLabel="#{emp.name}" itemValue="#{emp.id}"></f:selectItems>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:commandButton value="Add" action="#{departmentManagedBean.addDepartment()}" update=":departments-table"></p:commandButton>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

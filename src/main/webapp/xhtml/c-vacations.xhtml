@@ -1,0 +1,42 @@
+<ui:composition template="/xhtml/cm-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Company Vacations</ui:define>
+    <ui:define name="content">
+        <p:dataTable id ="vacationsTable" value="#{vacationManagedBean.listCompanytVacations()}" var="vac">
+            <p:column headerText="Num">
+                <h:outputText value="#{vac.id}"></h:outputText>
+            </p:column>
+            <p:column headerText="Requested At">
+                <h:outputText value="#{vac.requestedAt}"></h:outputText>
+            </p:column>
+            <p:column headerText="Requested By">
+                <h:outputText value="#{vac.employee.name}"></h:outputText>
+            </p:column>
+            <p:column headerText="Type">
+                <h:outputText value="#{vac.type}"></h:outputText>
+            </p:column>
+            <p:column headerText="Starts From">
+                <h:outputText value="#{vac.startsFrom}"></h:outputText>
+            </p:column>
+            <p:column headerText="Ends At">
+                <h:outputText value="#{vac.endsAt}"></h:outputText>
+            </p:column>
+            <p:column headerText="Accept">
+                <h:form>
+                    <p:commandButton value="Accept" action="#{vacationManagedBean.gmAccept(vac)}" update=":vacationsTable"></p:commandButton>
+                </h:form>
+            </p:column>
+            <p:column headerText="Reject">
+                <h:form>
+                    <p:commandButton value="Reject" action="#{vacationManagedBean.gmReject(vac)}" update=":vacationsTable"></p:commandButton>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>

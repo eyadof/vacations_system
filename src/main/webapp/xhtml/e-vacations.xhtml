@@ -1,0 +1,58 @@
+<ui:composition template="/xhtml/dm-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">My Vacations</ui:define>
+    <ui:define name="content">
+        <h:form id="formView">
+            <p:dataTable id ="vacationsTable" value="#{employeeManagedBean.currentUser.vacations}" var="vac">
+                <p:column headerText="Num">
+                    <h:outputText value="#{vac.id}"></h:outputText>
+                </p:column>
+                <p:column headerText="Requested At">
+                    <h:outputText value="#{vac.requestedAt}"></h:outputText>
+                </p:column>
+                <p:column headerText="Status">
+                    <h:outputText value="#{vac.status}"></h:outputText>
+                </p:column>
+                <p:column headerText="Type">
+                    <h:outputText value="#{vac.type}"></h:outputText>
+                </p:column>
+                <p:column headerText="Starts From">
+                    <h:outputText value="#{vac.startsFrom}"></h:outputText>
+                </p:column>
+                <p:column headerText="Ends At">
+                    <h:outputText value="#{vac.endsAt}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+            <div>
+                <p:panelGrid columns="2">
+                    <h:outputText value="Type">
+                    </h:outputText>
+                    <p:selectOneMenu value="#{vacationManagedBean.vacation.type}">
+                        <f:selectItem itemLabel="Select Type" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{vacationManagedBean.types}" />
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Starts From">
+                    </h:outputText>
+                    <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.startsFrom}">
+
+                    </p:calendar>
+                    <h:outputText value="End At">
+                    </h:outputText>
+                    <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.endsAt}">
+
+                    </p:calendar>
+                </p:panelGrid>
+            </div>
+            <div style="visibility: hidden" value="#{vacationManagedBean.vacation.employee = employeeManagedBean.currentUser}"></div>
+            <p:commandButton value="Add" action="#{vacationManagedBean.addVacation()}" update=":formView"> </p:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

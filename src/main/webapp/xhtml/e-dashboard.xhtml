@@ -1,0 +1,85 @@
+<ui:composition template="/xhtml/e-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Admin Dashboard</ui:define>
+
+    <ui:define name="content">
+        <h:form id ="employees-table">
+            <p:dataTable value="#{employeeManagedBean.employeeList}" var="emp">
+                <p:column headerText="ID">
+                    <h:outputText value="#{emp.id}"></h:outputText>
+                </p:column>
+                <p:column headerText="Name">
+                    <p:inplace>
+                        <h:inputText value="#{emp.name}"></h:inputText>
+                    </p:inplace>                
+                </p:column>
+                <p:column headerText="Email">
+                    <p:inplace>
+                        <p:inputText value="#{emp.email}"></p:inputText>
+                    </p:inplace>
+                </p:column>
+                <p:column headerText="Role">
+                    <p:inplace>
+                        <p:selectOneMenu value="#{emp.role}">
+                            <f:selectItems value="#{employeeManagedBean.roles}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </p:inplace>
+                </p:column>
+                <p:column headerText="Department">
+                    <p:inplace label="#{emp.department.name}">
+                        <p:selectOneMenu value="#{employeeManagedBean.departmentId}">
+                            <f:selectItems value="#{departmentManagedBean.departments}" var="depl" itemValue="#{depl.id}" itemLabel="#{depl.name}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </p:inplace>
+                </p:column>
+                <p:column headerText="Salary">
+                    <p:inplace>
+                        <p:spinner value="#{emp.salary}" prefix="L.S" min="50000" stepFactor="5000" />
+                    </p:inplace>
+                </p:column>
+                <p:column headerText="Address">
+                    <p:inplace>
+                        <p:inputText value="#{emp.address}"></p:inputText>
+                    </p:inplace>
+                </p:column>
+                <p:column headerText="Edit">
+                    <p:commandButton value="Edit" action="#{employeeManagedBean.updateEmployee(emp)}" update=":employees-table"></p:commandButton>
+                    <p:commandButton value="Delete" action="#{employeeManagedBean.deleteEmployee(emp)}" update=":employees-table"></p:commandButton>
+                </p:column>
+            </p:dataTable>            
+        </h:form>
+        <p:dialog class="modal" header="New Employee" widgetVar="new-employee-dialog" modal="true" height="100%">
+            <h:form id="edit-form">
+                <h:panelGrid columns="2" cellpadding="3">
+                    <p:outputLabel for="name">Name</p:outputLabel>
+                    <p:inputText value="#{employeeManagedBean.employee.name}" placeholder="Employee Full Name" id="name"/>
+                    <p:outputLabel for="email">Address</p:outputLabel>
+                    <p:inputText value="#{employeeManagedBean.employee.address}" id="address" type="text"/>
+                    <p:outputLabel for="email">Email</p:outputLabel>
+                    <p:inputText value="#{employeeManagedBean.employee.email}" id="email" type="email" class="validate"/>
+                    <p:outputLabel for="password">Password</p:outputLabel>
+                    <p:inputText value="#{employeeManagedBean.employee.password}" id="password" type="password" class="validate"/>
+                    <p:outputLabel>Role</p:outputLabel>
+                    <p:selectOneMenu value="#{employeeManagedBean.employee.role}">
+                        <f:selectItem itemLabel="Select Role" itemValue="" noSelectionOption="true"></f:selectItem>
+                        <f:selectItems value="#{employeeManagedBean.roles}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="department">Department</p:outputLabel>
+                    <p:selectOneMenu id="department" value="#{employeeManagedBean.departmentId}">
+                        <f:selectItems value="#{departmentManagedBean.departments}" var="dep" itemValue="#{dep.id}" itemLabel="#{dep.name}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="salary">Salary</p:outputLabel>
+                    <p:spinner id="salary" value="#{employeeManagedBean.employee.salary}" prefix="L.S" min="500" stepFactor="500" />
+                </h:panelGrid>
+                <p:commandButton value="Add" action="#{employeeManagedBean.addEmploye()}" update=":employees-table"></p:commandButton>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
