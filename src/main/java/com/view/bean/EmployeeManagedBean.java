@@ -13,8 +13,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 
 /**
@@ -71,8 +73,10 @@ public class EmployeeManagedBean implements Serializable{
     public String login(String email, String password){
         resetEmployee();
         currentUser = EmployeeDao.login(email, password);
-        if(currentUser == null)
+        if(currentUser == null){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "wrong username/password!"));
             return "login.xhtml";
+        }
         else
             switch(currentUser.getRole()){
                     case Normal:
