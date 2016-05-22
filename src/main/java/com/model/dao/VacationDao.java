@@ -44,6 +44,30 @@ public class VacationDao {
         return result;
     }
     
+    public static List<Vacation> listMyVacations(long emp_id){
+        List<Vacation> result = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.setCacheMode(CacheMode.IGNORE);
+        Transaction tx = null;
+        
+        try{
+            tx = session.beginTransaction();
+            Query q = session.createQuery("FROM Vacation  Where employee.id = :emp_id order by requestedAt DESC");
+            q.setParameter("emp_id", emp_id);
+            result = q.list();
+            tx.commit();
+        }
+        catch(HibernateException ex){
+            if (tx != null) 
+                tx.rollback();
+            ex.printStackTrace();
+        }
+        finally{
+            session.close();
+        }
+        return result;
+    }
+    
     public static List<Vacation> listDepartmentVacations(long department_id){
         List<Vacation> result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -52,7 +76,6 @@ public class VacationDao {
         
         try{
             tx = session.beginTransaction();
-            System.err.println(department_id);
             Query q = session.createQuery("FROM Vacation  Where employee.department.id = :dep_id AND status = 'Pending'");
             q.setParameter("dep_id", department_id);
             result = q.list();

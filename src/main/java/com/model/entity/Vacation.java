@@ -31,7 +31,7 @@ public class Vacation implements Serializable {
         Holiday,
         Mortal,
         Birth,
-        Ill
+        Illness
     }
 
     public static enum VacationStatus {

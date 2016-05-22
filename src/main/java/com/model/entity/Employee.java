@@ -8,6 +8,7 @@ package com.model.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,6 +32,7 @@ public class Employee implements Serializable {
 
     public static enum UserRoles {
         Normal,
+        AdministrativeEmployee,
         DepartmentManager,
         CompanyManager,
         Administrator
@@ -38,7 +40,7 @@ public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Basic(optional = false)
     private String name;
@@ -62,7 +64,7 @@ public class Employee implements Serializable {
     @ManyToOne(cascade = {CascadeType.ALL})
     private Department department;
 
-    @OneToMany(mappedBy = "employee", cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employee", cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private List<Vacation> vacations = new ArrayList<>();
 
     public Employee() {
@@ -144,5 +146,22 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Employee)) {
+            return false;
+        }
+        Employee other = (Employee) object;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 }

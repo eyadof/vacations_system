@@ -36,9 +36,17 @@ public class VacationManagedBean implements Serializable {
     public void addVacation() {
         boolean res = VacationDao.addVacation(vacation);
         if (res) {
-            //FacesContext.getCurrentInstance().;
-            send();
+            if (vacation.getEmployee().getRole() == Employee.UserRoles.DepartmentManager) {
+                vacation.setStatus(Vacation.VacationStatus.AcceptedByDepartmentManager);
+                sendToCM();
+            }
+            else
+                send();
         }
+    }
+
+    public List<Vacation> listMyVacations(long emp_id) {
+        return VacationDao.listMyVacations(emp_id);
     }
 
     public List<Vacation> listDepartmentVacations(long department_id) {
@@ -70,6 +78,13 @@ public class VacationManagedBean implements Serializable {
         String message = String.format("Employee %s have just submitted a vacation for %s", vacation.getEmployee().getName(), vacation.getType().toString());
         EventBus eventBus = EventBusFactory.getDefault().eventBus();
         eventBus.publish("/notify", new FacesMessage(message));
+    }
+
+    private void sendToCM() {
+        long managerId = vacation.getEmployee().getDepartment().getManager().getId();
+        String message = String.format("Manager %s have just submitted a vacation for %s", vacation.getEmployee().getName(), vacation.getType().toString());
+        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+        eventBus.publish("/cm", new FacesMessage(message));
     }
 
     public Vacation getVacation() {

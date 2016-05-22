@@ -9,7 +9,7 @@
     <ui:define name="title">My Vacations</ui:define>
     <ui:define name="content">
         <h:form id="formView">
-            <p:dataTable id ="vacationsTable" value="#{employeeManagedBean.currentUser.vacations}" var="vac">
+            <p:dataTable id ="vacationsTable" value="#{vacationManagedBean.listMyVacations(employeeManagedBean.currentUser.id)}" var="vac">
                 <p:column headerText="Num">
                     <h:outputText value="#{vac.id}"></h:outputText>
                 </p:column>

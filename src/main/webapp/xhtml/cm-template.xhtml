@@ -8,6 +8,15 @@
         <title><ui:insert name="title" /></title>
     </h:head>
     <h:body>
+        <p:growl widgetVar="growl" showDetail="true" />
+        <p:socket onMessage="handleMessage" channel="/cm" />    
+
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                PF('growl').show([facesmessage]);
+            }
+        </script>
         <div class="ui-grid-row">
             <h:form>
                 <p:menubar>

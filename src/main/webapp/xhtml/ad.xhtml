@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"  
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://java.sun.com/jsf/facelets" 
+       xmlns:p="http://primefaces.org/ui" dir="ltr" lang="en">
+    <h:head>
+        <title>Administrative Page</title>
+    </h:head>
+    <h:body>            
+        <h:form>
+            <div>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Type">
+                    </h:outputText>
+                    <p:selectOneMenu value="#{vacationManagedBean.vacation.type}">
+                        <f:selectItem itemLabel="Select Type" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{vacationManagedBean.types}" />
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Starts From">
+                    </h:outputText>
+                    <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.startsFrom}">
+
+                    </p:calendar>
+                    <h:outputText value="End At">
+                    </h:outputText>
+                    <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{vacationManagedBean.vacation.endsAt}">
+
+                    </p:calendar>
+                    <h:outputText value="For"></h:outputText>
+                    <p:selectOneMenu value="#{vacationManagedBean.vacation.employee}">
+                        <f:selectItem itemLabel="Select Employee" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{employeeManagedBean.getDepartmentEmployees(employeeManagedBean.currentUser.department.id)}" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </div>
+            <p:commandButton value="Add" action="#{vacationManagedBean.addVacation()}"> </p:commandButton>
+        </h:form>
+    </h:body>
+</html>

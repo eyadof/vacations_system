@@ -10,7 +10,7 @@
 
     <ui:define name="content">
         <h:form id ="employees-table">
-            <p:dataTable value="#{employeeManagedBean.employeeList}" var="emp">
+            <p:dataTable value="#{employeeManagedBean.employees}" var="emp">
                 <p:column headerText="ID">
                     <h:outputText value="#{emp.id}"></h:outputText>
                 </p:column>

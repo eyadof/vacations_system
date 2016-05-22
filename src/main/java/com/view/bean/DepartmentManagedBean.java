@@ -39,6 +39,7 @@ public class DepartmentManagedBean implements Serializable {
         Employee manager = EmployeeDao.getById(managerId);
         manager.setDepartment(department);
         manager.setRole(Employee.UserRoles.DepartmentManager);
+        EmployeeDao.updateEmploye(manager);
         department.setManager(manager);
         boolean res = DepartmentDao.addDepartment(department);
         if (!res) {

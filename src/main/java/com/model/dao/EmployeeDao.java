@@ -133,7 +133,7 @@ public class EmployeeDao {
 
         return result;
     }
-    
+
     public static Employee getById(long id) {
         Employee result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -142,6 +142,28 @@ public class EmployeeDao {
         try {
             tx = session.beginTransaction();
             result = (Employee) session.get(Employee.class, id);
+            tx.commit();
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public static List<Employee> getByDep(long id) {
+        List<Employee> result = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Query q = session.createQuery("FROM Employee  Where department.id = :dep_id AND role = 'Normal'");
+            q.setParameter("dep_id", id);
+            result = q.list();
             tx.commit();
         } catch (HibernateException ex) {
             if (tx != null) {
